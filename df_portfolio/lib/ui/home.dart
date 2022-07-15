@@ -116,7 +116,10 @@ class HomePage extends StatelessWidget {
   }
 
   //Screen Methods:-------------------------------------------------------------
-  Widget _buildBody(BuildContext context, BoxConstraints constraints) {
+  Widget _buildBody(
+    BuildContext context,
+    BoxConstraints constraints,
+  ) {
     return SingleChildScrollView(
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -142,7 +145,10 @@ class HomePage extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Expanded(flex: 1, child: _buildContent(context)),
+                Expanded(
+                  flex: 1,
+                  child: _buildContent(context),
+                ),
                 _buildIllustration(),
               ],
             ),
@@ -163,7 +169,10 @@ class HomePage extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Expanded(flex: 1, child: _buildContent(context)),
+                Expanded(
+                  flex: 1,
+                  child: _buildContent(context),
+                ),
               ],
             ),
           ),
@@ -263,7 +272,10 @@ class HomePage extends StatelessWidget {
     return Text(
       ResponsiveWidget.isSmallScreen(context)
           ? Strings.headline
-          : Strings.headline.replaceFirst(RegExp(r' f'), '\nf'),
+          : Strings.headline.replaceFirst(
+              RegExp(r' f'),
+              '\nf',
+            ),
       style: TextStyles.subHeading,
     );
   }
@@ -313,10 +325,15 @@ class HomePage extends StatelessWidget {
 
   Widget _buildSkills(BuildContext context) {
     final List<Widget> widgets = skills
-        .map((skill) => Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: _buildSkillChip(context, skill),
-            ))
+        .map(
+          (skill) => Padding(
+            padding: const EdgeInsets.only(
+              right: 8.0,
+              top: 5,
+            ),
+            child: _buildSkillChip(context, skill),
+          ),
+        )
         .toList();
 
     return Column(
@@ -337,7 +354,10 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillChip(BuildContext context, String label) {
+  Widget _buildSkillChip(
+    BuildContext context,
+    String label,
+  ) {
     return Chip(
       label: Text(
         label,
@@ -470,7 +490,10 @@ class HomePage extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            window.open("https://www.linkedin.com/in/zubairehman/", "LinkedIn");
+            window.open(
+              "https://www.linkedin.com/in/zubairehman/",
+              "LinkedIn",
+            );
           },
           child: Image.network(
             Assets.linkedin,
@@ -482,7 +505,10 @@ class HomePage extends StatelessWidget {
         const SizedBox(width: 16.0),
         GestureDetector(
           onTap: () {
-            window.open("https://medium.com/@zubairehman.work", "Medium");
+            window.open(
+              "https://medium.com/@zubairehman.work",
+              "Medium",
+            );
           },
           child: Image.network(
             Assets.evernote,
@@ -494,7 +520,10 @@ class HomePage extends StatelessWidget {
         const SizedBox(width: 16.0),
         GestureDetector(
           onTap: () {
-            window.open("https://github.com/zubairehman", "Github");
+            window.open(
+              "https://github.com/zubairehman",
+              "Github",
+            );
           },
           child: Image.network(
             Assets.google,

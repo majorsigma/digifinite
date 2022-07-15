@@ -1,16 +1,13 @@
 /*
- * Created by 李卓原 on 2018/9/29.
- * email: zhuoyuan93@gmail.com
+ * Updated by olalekan on 2022/07/15.
+ * email: olalekan.o.ogundele@gmail.com
  */
-
-
 
 import 'package:flutter/material.dart';
 
 class ScreenUtil {
   static ScreenUtil instance = ScreenUtil();
 
-  //设计稿的设备尺寸修改
   double? width;
   double? height;
   bool? allowFontScaling;
@@ -29,10 +26,12 @@ class ScreenUtil {
     this.allowFontScaling = false,
   });
 
+  /// returns an instance of ScreenUtil
   static ScreenUtil getInstance() {
     return instance;
   }
 
+  /// initialized the screen utility properties through MediaQuery
   void init(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     _mediaQueryData = mediaQuery;
@@ -44,51 +43,46 @@ class ScreenUtil {
     _textScaleFactor = mediaQuery.textScaleFactor;
   }
 
+  /// returns MediaQueryData instance
   static MediaQueryData get mediaQueryData => _mediaQueryData!;
 
-  ///每个逻辑像素的字体像素数，字体的缩放比例
+  /// returns the TextScaleFactory value
   static double? get textScaleFactory => _textScaleFactor;
 
-  ///设备的像素密度
+  /// returns the pixel ration
   static double? get pixelRatio => _pixelRatio;
 
-  ///当前设备宽度 dp
+  /// returns the screen's widthDp
   static double? get screenWidthDp => _screenWidth;
 
-  ///当前设备高度 dp
+  /// returns the screen's heightDp
   static double? get screenHeightDp => _screenHeight;
 
-  ///当前设备宽度 px
+  /// returns the screen's width in dp
   static double? get screenWidth => _screenWidth! * _pixelRatio!;
 
-  ///当前设备高度 px
+  /// returns the screen's height in dp
   static double? get screenHeight => _screenHeight! * _pixelRatio!;
 
-  ///状态栏高度 dp 刘海屏会更高
+  /// returns the status bar's height
   static double? get statusBarHeight => _statusBarHeight;
 
-  ///底部安全区距离 dp
+  /// returns the bottom bar's height
   static double? get bottomBarHeight => _bottomBarHeight;
 
-  ///实际的dp与设计稿px的比例
+  /// returns the scaling width
   get scaleWidth => _screenWidth! / instance.width!;
 
+  /// returns the scalling height
   get scaleHeight => _screenHeight! / instance.height!;
 
-  ///根据设计稿的设备宽度适配
-  ///高度也根据这个来做适配可以保证不变形
+  /// sets the width of Screen Utils
   setWidth(double width) => width * scaleWidth;
 
-  /// 根据设计稿的设备高度适配
-  /// 当发现设计稿中的一屏显示的与当前样式效果不符合时,
-  /// 或者形状有差异时,高度适配建议使用此方法
-  /// 高度适配主要针对想根据设计稿的一屏展示一样的效果
+  /// sets the height of Screen Utils
   setHeight(double height) => height * scaleHeight;
 
-  ///字体大小适配方法
-  ///@param fontSize 传入设计稿上字体的px ,
-  ///@param allowFontScaling 控制字体是否要根据系统的“字体大小”辅助选项来进行缩放。默认值为false。
-  ///@param allowFontScaling Specifies whether fonts should scale to respect Text Size accessibility settings. The default is false.
+  /// sets the scale-independent pixel of Screen Utils
   setSp(double fontSize) => allowFontScaling!
       ? setWidth(fontSize)
       : setWidth(fontSize) / _textScaleFactor;
