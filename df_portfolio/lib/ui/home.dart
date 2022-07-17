@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_web_libraries_in_flutter
 
 import 'dart:html';
+
 import 'package:flutter/material.dart';
+
 import 'package:df_portfolio/constants/assets.dart';
 import 'package:df_portfolio/constants/fonts.dart';
 import 'package:df_portfolio/constants/strings.dart';
@@ -9,8 +11,12 @@ import 'package:df_portfolio/constants/text_styles.dart';
 import 'package:df_portfolio/models/education.dart';
 import 'package:df_portfolio/utils/screen/screen_utils.dart';
 import 'package:df_portfolio/widgets/responsive_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
+  final Uri _githubUrl = Uri.parse("https://github.com/majorsigma");
+
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -62,15 +68,23 @@ class HomePage extends StatelessWidget {
         ),
         children: <TextSpan>[
           TextSpan(
-            text: Strings.portfoli,
+            text: Strings.digi,
             style: TextStyles.logo,
           ),
           TextSpan(
-            text: Strings.o,
+            text: Strings.finite,
             style: TextStyles.logo.copyWith(
               color: const Color(0xFF50AFC0),
             ),
           ),
+          const TextSpan(
+            text:
+                "  scaling businesses with digital intelligence one byte at a time",
+            style: TextStyle(
+                fontFamily: "ProductSans",
+                fontSize: 11,
+                fontStyle: FontStyle.italic),
+          )
         ],
       ),
     );
@@ -219,8 +233,6 @@ class HomePage extends StatelessWidget {
       children: <Widget>[
         SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 24.0 : 0.0),
         _buildAboutMe(context),
-        const SizedBox(height: 4.0),
-        _buildHeadline(context),
         SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 12.0 : 24.0),
         _buildSummary(),
         SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 24.0 : 48.0),
@@ -229,7 +241,7 @@ class HomePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _buildEducation(),
+                  _buildEducation(context),
                   const SizedBox(height: 24.0),
                   _buildSkills(context),
                 ],
@@ -250,14 +262,14 @@ class HomePage extends StatelessWidget {
         ),
         children: <TextSpan>[
           TextSpan(
-            text: Strings.about,
+            text: Strings.our,
             style: TextStyles.heading.copyWith(
               fontFamily: Fonts.nexaLight,
               fontSize: ResponsiveWidget.isSmallScreen(context) ? 36 : 45.0,
             ),
           ),
           TextSpan(
-            text: Strings.me,
+            text: Strings.mission,
             style: TextStyles.heading.copyWith(
               color: const Color(0xFF50AFC0),
               fontSize: ResponsiveWidget.isSmallScreen(context) ? 36 : 45.0,
@@ -265,18 +277,6 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildHeadline(BuildContext context) {
-    return Text(
-      ResponsiveWidget.isSmallScreen(context)
-          ? Strings.headline
-          : Strings.headline.replaceFirst(
-              RegExp(r' f'),
-              '\nf',
-            ),
-      style: TextStyles.subHeading,
     );
   }
 
@@ -294,9 +294,9 @@ class HomePage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
+        Flexible(
           flex: 1,
-          child: _buildEducation(),
+          child: _buildEducation(context),
         ),
         const SizedBox(width: 40.0),
         Expanded(
@@ -390,61 +390,134 @@ class HomePage extends StatelessWidget {
     ),
   ];
 
-  Widget _buildEducation() {
+  Widget _buildEducation(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildEducationContainerHeading(),
-        _buildEducationSummary(),
+        _buildOurServiceContainerHeading(context),
+        _buildServicesSummary(),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            SvgPicture.network(
+              "assets/icons/coding.svg",
+              width: 16,
+              height: 16,
+            ),
+            const SizedBox(width: 8),
+            const Text("Software Development"),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            SvgPicture.network(
+              "assets/icons/security.svg",
+              width: 16,
+              height: 16,
+            ),
+            const SizedBox(width: 8),
+            const Text("Penetration Testing"),
+          ],
+        ),
         const SizedBox(height: 8.0),
-        _buildEducationTimeline(),
+        Row(
+          children: [
+            SvgPicture.network(
+              "assets/icons/maintenance.svg",
+              width: 16,
+              height: 16,
+            ),
+            const SizedBox(width: 8),
+            const Text("Systems Repair & Maintenance"),
+          ],
+        ),
+        const SizedBox(height: 8.0),
+        Row(
+          children: [
+            SvgPicture.network(
+              "assets/icons/networking.svg",
+              width: 16,
+              height: 16,
+            ),
+            const SizedBox(width: 8),
+            const Text("Computer Networking"),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            SvgPicture.network(
+              "assets/icons/database.svg",
+              width: 16,
+              height: 16,
+            ),
+            const SizedBox(width: 8),
+            const Text("Database Administration"),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            SvgPicture.network(
+              "assets/icons/analysis.svg",
+              width: 16,
+              height: 16,
+            ),
+            const SizedBox(width: 8),
+            const Text("Big Data Analysis"),
+          ],
+        ),
+        
+        const SizedBox(height: 8.0),
+        Row(
+          children: [
+            SvgPicture.network(
+              "assets/icons/tutoring.svg",
+              width: 16,
+              height: 16,
+            ),
+            const SizedBox(width: 8),
+            const Text("IT Consulting & Tutoring"),
+          ],
+        ),
       ],
     );
   }
 
-  Widget _buildEducationContainerHeading() {
-    return Text(
-      Strings.experience,
-      style: TextStyles.subHeading,
-    );
-  }
-
-  Widget _buildEducationSummary() {
-    return Text(
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      style: TextStyles.body,
-    );
-  }
-
-  Widget _buildEducationTimeline() {
-    final List<Widget> widgets = educationList
-        .map((education) => _buildEducationTile(education))
-        .toList();
-    return Column(children: widgets);
-  }
-
-  Widget _buildEducationTile(Education education) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            education.post,
-            style: TextStyles.company,
-          ),
-          Text(
-            education.organization,
-            style: TextStyles.body.copyWith(
-              color: const Color(0xFF45405B),
+  Widget _buildOurServiceContainerHeading(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        // Note: Styles for TextSpans must be explicitly defined.
+        // Child text spans will inherit styles from parent
+        style: const TextStyle(
+          fontSize: 14.0,
+          color: Colors.black,
+        ),
+        children: <TextSpan>[
+          TextSpan(
+            text: "Our",
+            style: TextStyles.heading.copyWith(
+              fontFamily: Fonts.nexaLight,
+              fontSize: ResponsiveWidget.isSmallScreen(context) ? 24.0 : 32.0,
             ),
           ),
-          Text(
-            '${education.from}-${education.to}',
-            style: TextStyles.body,
+          TextSpan(
+            text: " Services",
+            style: TextStyles.heading.copyWith(
+              color: const Color(0xFF50AFC0),
+              fontSize: ResponsiveWidget.isSmallScreen(context) ? 24.0 : 32.0,
+            ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildServicesSummary() {
+    return Text(
+      'The list of services we provide include:',
+      style: TextStyles.body,
     );
   }
 
@@ -520,10 +593,11 @@ class HomePage extends StatelessWidget {
         const SizedBox(width: 16.0),
         GestureDetector(
           onTap: () {
-            window.open(
-              "https://github.com/zubairehman",
-              "Github",
-            );
+            // window.open(
+            //   "https://github.com/zubairehman",
+            //   "Github",
+            // );
+            launchUrl(_githubUrl);
           },
           child: Image.network(
             Assets.google,

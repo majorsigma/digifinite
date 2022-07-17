@@ -150,8 +150,11 @@
         // Service workers not supported. Just drop the <script> tag.
         loadMainDartJs();
       }
-      const element = document.getElementsByClassName("flutter-loader");
-      element.remove();
+      window.addEventListener("flutter-first-frame", function () {
+        console.log("flutter app loaded.");
+        const element = document.getElementsByClassName("flutter-loader");
+        element.remove;
+      });
     </script>
   </body>
 </html>
