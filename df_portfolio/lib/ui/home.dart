@@ -15,7 +15,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
-  final Uri _githubUrl = Uri.parse("https://github.com/majorsigma");
+  final Uri _githubUrl = Uri.parse("https://github.com/DigiFinite");
+  final Uri _linkedInUrl = Uri.parse("https://linkedin.com/");
+  final Uri _facebookUrl = Uri.parse("https://facebook.com/");
+  final Uri _twitterUrl = Uri.parse("https://twitter.com/");
+  final Uri _instagramUrl = Uri.parse("https://instagram.com/");
+
+  // Targeted Platforms Methods:------------------------------------------------------------
+  final skills = [
+    'Android',
+    'iOS',
+    'Linux',
+    'Mac',
+    'Windows',
+    "Web",
+  ];
 
   HomePage({Key? key}) : super(key: key);
 
@@ -241,12 +255,12 @@ class HomePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _buildEducation(context),
+                  _buildServices(context),
                   const SizedBox(height: 24.0),
-                  _buildSkills(context),
+                  _buildPlatforms(context),
                 ],
               )
-            : _buildSkillsAndEducation(context)
+            : _buildServicesAndPlatforms(context)
       ],
     );
   }
@@ -290,40 +304,24 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillsAndEducation(BuildContext context) {
+  Widget _buildServicesAndPlatforms(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Flexible(
           flex: 1,
-          child: _buildEducation(context),
+          child: _buildServices(context),
         ),
         const SizedBox(width: 40.0),
         Expanded(
           flex: 1,
-          child: _buildSkills(context),
+          child: _buildPlatforms(context),
         ),
       ],
     );
   }
 
-  // Skills Methods:------------------------------------------------------------
-  final skills = [
-    'Java',
-    'Kotlin',
-    'Dart',
-    'Flutter',
-    'Android',
-    'iOS',
-    'Xamarin',
-    'Reactive Programming',
-    'Jenkins',
-    'Photoshop',
-    'JFrog Atrtifactory',
-    'Code Magic',
-  ];
-
-  Widget _buildSkills(BuildContext context) {
+  Widget _buildPlatforms(BuildContext context) {
     final List<Widget> widgets = skills
         .map(
           (skill) => Padding(
@@ -340,14 +338,13 @@ class HomePage extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _buildSkillsContainerHeading(),
+        _buildPlatformsContainerHeading(),
         Wrap(children: widgets),
-//        _buildNavigationArrows(),
       ],
     );
   }
 
-  Widget _buildSkillsContainerHeading() {
+  Widget _buildPlatformsContainerHeading() {
     return Text(
       Strings.skillsIhave,
       style: TextStyles.subHeading,
@@ -368,29 +365,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Education Methods:---------------------------------------------------------
-  final educationList = [
-    Education(
-      'Apr 2018',
-      'Present',
-      'Embrace-it Pakistan',
-      'Sr. Software Engineer',
-    ),
-    Education(
-      'Apr 2016',
-      'Apr 2018',
-      'TEO International',
-      'Sr. Software Engineer',
-    ),
-    Education(
-      'July 2014',
-      'March 2016',
-      'Citrusbits',
-      'Software Engineer',
-    ),
-  ];
-
-  Widget _buildEducation(BuildContext context) {
+  Widget _buildServices(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -405,7 +380,10 @@ class HomePage extends StatelessWidget {
               height: 16,
             ),
             const SizedBox(width: 8),
-            const Text("Software Development"),
+            Text(
+              "Software Development",
+              style: TextStyles.body,
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -417,7 +395,10 @@ class HomePage extends StatelessWidget {
               height: 16,
             ),
             const SizedBox(width: 8),
-            const Text("Penetration Testing"),
+            Text(
+              "Penetration Testing",
+              style: TextStyles.body,
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -429,7 +410,10 @@ class HomePage extends StatelessWidget {
               height: 16,
             ),
             const SizedBox(width: 8),
-            const Text("Systems Repair & Maintenance"),
+            Text(
+              "Systems Repair & Maintenance",
+              style: TextStyles.body,
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -441,7 +425,10 @@ class HomePage extends StatelessWidget {
               height: 16,
             ),
             const SizedBox(width: 8),
-            const Text("Computer Networking"),
+            Text(
+              "Computer Networking",
+              style: TextStyles.body,
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -453,7 +440,10 @@ class HomePage extends StatelessWidget {
               height: 16,
             ),
             const SizedBox(width: 8),
-            const Text("Database Administration"),
+            Text(
+              "Database Administration",
+              style: TextStyles.body,
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -465,10 +455,12 @@ class HomePage extends StatelessWidget {
               height: 16,
             ),
             const SizedBox(width: 8),
-            const Text("Big Data Analysis"),
+            Text(
+              "Big Data Analysis",
+              style: TextStyles.body,
+            ),
           ],
         ),
-        
         const SizedBox(height: 8.0),
         Row(
           children: [
@@ -478,7 +470,10 @@ class HomePage extends StatelessWidget {
               height: 16,
             ),
             const SizedBox(width: 8),
-            const Text("IT Consulting & Tutoring"),
+            Text(
+              "IT Consulting & Tutoring",
+              style: TextStyles.body,
+            ),
           ],
         ),
       ],
@@ -562,58 +557,45 @@ class HomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         GestureDetector(
-          onTap: () {
-            window.open(
-              "https://www.linkedin.com/in/zubairehman/",
-              "LinkedIn",
-            );
-          },
-          child: Image.network(
-            Assets.linkedin,
-            color: const Color(0xFF45405B),
+          onTap: () => launchUrl(_linkedInUrl),
+          child: SvgPicture.network(
+            "assets/icons/linkedin.svg",
             height: 20.0,
             width: 20.0,
           ),
         ),
         const SizedBox(width: 16.0),
         GestureDetector(
-          onTap: () {
-            window.open(
-              "https://medium.com/@zubairehman.work",
-              "Medium",
-            );
-          },
-          child: Image.network(
-            Assets.evernote,
-            color: const Color(0xFF45405B),
+          onTap: () => launchUrl(_githubUrl),
+          child: SvgPicture.network(
+            "assets/icons/github.svg",
             height: 20.0,
             width: 20.0,
           ),
         ),
         const SizedBox(width: 16.0),
         GestureDetector(
-          onTap: () {
-            // window.open(
-            //   "https://github.com/zubairehman",
-            //   "Github",
-            // );
-            launchUrl(_githubUrl);
-          },
-          child: Image.network(
-            Assets.google,
-            color: const Color(0xFF45405B),
+          onTap: () => launchUrl(_twitterUrl),
+          child: SvgPicture.network(
+            "assets/icons/twitter.svg",
             height: 20.0,
             width: 20.0,
           ),
         ),
         const SizedBox(width: 16.0),
         GestureDetector(
-          onTap: () {
-            window.open("https://twitter.com/zubair340", "Twitter");
-          },
-          child: Image.network(
-            Assets.twitter,
-            color: const Color(0xFF45405B),
+          onTap: () => launchUrl(_facebookUrl),
+          child: SvgPicture.network(
+            "assets/icons/facebook.svg",
+            height: 20.0,
+            width: 20.0,
+          ),
+        ),
+        const SizedBox(width: 16.0),
+        GestureDetector(
+          onTap: () => launchUrl(_instagramUrl),
+          child: SvgPicture.network(
+            "assets/icons/instagram.svg",
             height: 20.0,
             width: 20.0,
           ),
